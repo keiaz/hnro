@@ -10,7 +10,15 @@ public class ArrayUtils {
 		arr.add("hello~");
 		arr.add("12345");
 		
-		System.out.println(join(arr));
+		int i;
+		int size = arr.size();
+		for(i = 0; i < size; i++) {
+			System.out.println(arr.get(i));
+			if (i == 3) {
+				break;
+			}
+		}
+		System.out.println(i == size);
 	}
 	
 	public static String join(ArrayList<String> arr) {
@@ -18,5 +26,4 @@ public class ArrayUtils {
 		result = result.substring(1, result.length() - 1);
 		return result;
 	}
-	
 }

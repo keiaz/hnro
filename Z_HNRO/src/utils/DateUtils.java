@@ -9,8 +9,7 @@ public class DateUtils {
 	
 	public static void main(String[] args) {
 		Calendar today = Calendar.getInstance();
-		today.set(Calendar.DATE, 27);
-		System.out.println(getExMonthLast(today).getTime());
+		System.out.println(today.get(Calendar.HOUR_OF_DAY));
 	}
 	
 	/**

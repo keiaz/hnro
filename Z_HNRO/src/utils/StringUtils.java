@@ -8,12 +8,58 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 	public static void main(String[] args) {
-		String test = "'%_%'__%'#abdzzz#_%'";
-		String rt = test.substring(2, test.length() - 2);
-		rt = rt.replaceAll("_", "#_");
-		rt = rt.replaceAll("%", "#%");
-		rt = rt.replaceAll("'", "#'");
-		System.out.println(rt);
+		String compcd = "hh01";
+		String plantcd = "pl01";
+		String linecd = "li01";
+		String processcd = "pr01";
+		String eqpcd = "eq01";
+		String cartypecd = "ct01";
+		String itemcd = "it01";
+		String pmfcd = "pc01";
+		String pmfsubcd = "ps01";
+		String mkdate = "20140401";
+		String mktime1 = "080000";
+		String mktime2 = "090000";
+		
+		String query = "" + " SELECT " + "		*" + " FROM" + "		 dbo.PTR001 p1" + "		,dbo.PTR002 p2" + " WHERE" + "		p1.REG_NO = p2.REG_NO" + "		AND p1.COMPANY_CD = 'compcd'" + "		AND p1.plant_CD = 'plantcd'" + "		AND p1.line_CD = 'linecd'"
+				+ "		AND p1.process_CD = 'processcd'" + "		AND p1.eqp_CD = 'eqpcd'" + "		AND p1.cartype_CD = 'cartypecd'" + "		AND p1.item_CD = 'itemcd'" + "		AND p1.pmf_CD = 'pmfcd'" + "		AND p1.pmf_sub_CD = 'pmfsubcd'" + "		AND p2.MK_DATE = 'mkdate' "
+				+ "		AND p2.MK_TIME BETWEEN 'starttime' AND 'endtime'";
+		
+		int i;
+		long start = System.currentTimeMillis();
+		String result = "";
+		for (i = 0; i < 10000; i++) {
+			result = query.replace("compcd", compcd).replace("plantcd", plantcd).replace("linecd", linecd).replace("processcd", processcd).replace("eqpcd", eqpcd).replace("cartypecd", cartypecd).replace("itemcd", itemcd).replace("pmfcd", pmfcd).replace("pmfsubcd", pmfsubcd).replace("mkdate", mkdate)
+					.replace("starttime", mktime1).replace("endtime", mktime2);
+		}
+		System.out.println(System.currentTimeMillis() - start);
+		System.out.println(result);
+		
+		StringBuilder sb = null;
+		start = System.currentTimeMillis();
+		for (i = 0; i < 10000; i++) {
+			sb = new StringBuilder("SELECT * FROM dbo.PTR001 p1, dbo.PTR002 p2 WHERE p1.REG_NO = p2.REG_NO AND p1.COMPANY_CD = '");
+			sb.append(compcd).append("' AND p1.plant_CD = '").append(plantcd).append("' AND p1.line_CD = '").append(linecd).append("' AND p1.process_CD = '").append(processcd);
+			sb.append("' AND p1.eqp_CD = '");
+			sb.append(eqpcd);
+			sb.append("' AND p1.cartype_CD = '");
+			sb.append(cartypecd);
+			sb.append("' AND p1.item_CD = '");
+			sb.append(itemcd);
+			sb.append("' AND p1.pmf_CD = '");
+			sb.append(pmfcd);
+			sb.append("' AND p1.pmf_sub_CD = '");
+			sb.append(pmfsubcd);
+			sb.append("' AND p2.MK_DATE = '");
+			sb.append(mkdate);
+			sb.append("' AND p2.MK_TIME BETWEEN '");
+			sb.append(mktime1);
+			sb.append("' AND '");
+			sb.append(mktime2);
+			sb.append("'");
+		}
+		System.out.println(System.currentTimeMillis() - start);
+		System.out.println(sb.toString());
 	}
 	
 	/**
@@ -87,6 +133,21 @@ public class StringUtils {
 			break;
 		}
 		return idx;
+	}
+	
+	/**
+	 * 특수문자 앞에 excape 문자 삽입
+	 * @param str
+	 * @param escape
+	 * @return
+	 */
+	public static String insertEscapeCharInFrontOfSpecialChars(String str, String escape) {
+		str = str.replaceAll("_", escape + "_");
+		str = str.replaceAll("%", escape + "%");
+		
+		str = str.replaceAll("'", "''"); // '(작은따옴표)는 escape로 처리되지 않았기에 별도처리
+		
+		return str;
 	}
 	
 	/**
