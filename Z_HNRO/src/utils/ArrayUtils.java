@@ -10,20 +10,17 @@ public class ArrayUtils {
 		arr.add("hello~");
 		arr.add("12345");
 		
-		int i;
-		int size = arr.size();
-		for(i = 0; i < size; i++) {
-			System.out.println(arr.get(i));
-			if (i == 3) {
-				break;
-			}
-		}
-		System.out.println(i == size);
+		String[] result = toArray(arr);
+		System.out.println(result);
 	}
 	
 	public static String join(ArrayList<String> arr) {
 		String result = arr.toString();
 		result = result.substring(1, result.length() - 1);
 		return result;
+	}
+	
+	public static String[] toArray(ArrayList<String> arr) {
+		return arr.toArray(new String[0]);
 	}
 }

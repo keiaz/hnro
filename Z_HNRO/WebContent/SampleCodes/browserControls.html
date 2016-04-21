@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>브라우저 컨트롤</title>
+</head>
+<body>
+	<button onclick="resizeBrowser(300, 400)">300x400 리사이즈</button>
+	<button onclick="minimize()">최소화</button>
+	<button onclick="closeBrowser()">닫기</button>
+
+	<object id="minimizer" type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" style="display: none;">
+		<param name="Command" value="Minimize">
+	</object>
+</body>
+
+<script type="text/javascript">
+	function resizeBrowser(width, height) {
+		window.resizeTo(width, height);
+	}
+
+	function minimize() {
+		document.getElementById("minimizer").Click();
+	}
+
+	function closeBrowser() {
+		window.close();
+	}
+</script>
+</html>
