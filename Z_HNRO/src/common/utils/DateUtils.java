@@ -8,7 +8,8 @@ import java.util.Date;
 public class DateUtils {
 	
 	public static void main(String[] args) {
-		Calendar cal = calculateMonth(new Date(), -6);
+		Calendar cal = calculateTime(new Date(), 7);
+		cal = calculateTime(cal.getTime(), -14);
 		System.out.println(cal.getTime().toString());
 	}
 	
@@ -114,13 +115,26 @@ public class DateUtils {
 	/**
 	 * 지정한 기간만큼 월을 변경
 	 * @param date
-	 * @param period 음수값을 넣으면 전일, 양수값을 넣으면 후일로 계산
+	 * @param period 음수값을 넣으면 전월, 양수값을 넣으면 후월로 계산
 	 * @return
 	 */
 	static Calendar calculateMonth(Date date, int period) {
 		Calendar result = Calendar.getInstance();
 		result.setTime(date);
 		result.add(Calendar.MONTH, period);
+		return result;
+	}
+	
+	/**
+	 * 지정한 기간만큼 시간을 변경
+	 * @param date
+	 * @param period 음수값을 넣으면 이전시간, 양수값을 넣으면 이후시간으로 계산
+	 * @return
+	 */
+	static Calendar calculateTime(Date date, int period) {
+		Calendar result = Calendar.getInstance();
+		result.setTime(date);
+		result.add(Calendar.HOUR_OF_DAY, period); // Calendar.HOUR 도 결과에 차이는 없었음.
 		return result;
 	}
 	

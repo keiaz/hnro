@@ -8,9 +8,16 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 	public static void main(String[] args) {
-		String code = "A|B|CA|DB|E";
-		String val = "DB";
-		System.out.println(indexOfForString(code, "(^|\\|)" + val + "(\\||$)"));
+		String exDate = "20160520";
+		String exTime = "050000";
+		
+		String date = "20160520";
+		String time = "000000";
+		
+		int result = exDate.compareTo(date);
+		int r2 = exTime.compareTo(time);
+		System.out.println(result +", " + r2);
+		System.out.println(result == -1 || (result == 0 && exTime.compareTo(time) == -1));
 	}
 	
 	/**
@@ -30,7 +37,7 @@ public class StringUtils {
 	 * 수치형 문자열 대소비교 2
 	 * @param str1
 	 * @param str2
-	 * @return str1보다 str2가 더 크면 -1, 같으면 0, 작으면 1
+	 * @return str1보다 str2가 더 크면 음수값, 같으면 0, 작으면 양수값
 	 */
 	public static int compareTo(String str1, String str2) {
 		return str1.compareTo(str2);
